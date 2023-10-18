@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const infoString = `
                 <div class="container">
                     <div class="section-box">
-                        <p style="font-weight: bold; font-size: 30px;">RACE: ${raceName}</p>
+                        <p style="font-weight: bold;">RACE: ${raceName}</p>
                     </div>
                     <div class="section-box">
-                        <p style="font-weight: bold; font-size: 30px;">CIRCUIT: ${circuitName}</p>
+                        <p style="font-weight: bold;">CIRCUIT: ${circuitName}</p>
                     </div>
                     <div class="section-box">
-                        <p style="font-weight: bold; font-size: 30px;">CIRCUIT LOCATION: ${location}</p>
+                        <p style="font-weight: bold;">CIRCUIT LOCATION: ${location}</p>
                     </div>
 
                     <div class="result-sections section-box2">
