@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const hudDataElement = document.getElementById('hud-data');
 
-    fetch('http://ergast.com/api/f1/current/last/results')
+    fetch('https://ergast.com/api/f1/current/last/results')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
