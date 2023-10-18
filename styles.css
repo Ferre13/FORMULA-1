@@ -78,3 +78,17 @@ body {
     text-align: left; /* Para alinear el texto a la derecha dentro de la caja */
     margin-right: 10px; /* Ajusta según tu preferencia */
 }
+@media only screen and (min-width: 768px) {
+    .section-box p {
+        font-size: 30px;
+    }
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    .section-box p {
+        font-size: 24px;
+    }
+}@media only screen and (max-width: 599px) {
+    .section-box p {
+        font-size: 18px;
+    }
+}
