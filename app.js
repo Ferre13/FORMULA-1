@@ -95,13 +95,15 @@ document.addEventListener('DOMContentLoaded', function () {
                                     const familyName = fullName.split(' ')[1];
                                     return `
                                         <tr>
-                                            <td style="text-align:left; white-space: nowrap;">
-                                                <span class="position" style="font-weight:bold;">${resultsByDriver[fullName][0].position}.</span>
-                                                <span class="driver">
-                                                    <span style="display: inline-block; vertical-align: top;">${givenName}</span>
-                                                    <span style="display: inline-block; vertical-align: top;">${familyName}</span>
-                                                </span>
-                                            </td>
+                                            <td style="text-align:left;">
+                                            <span class="position" style="font-weight:bold; display: inline-block; vertical-align: top;">${resultsByDriver[fullName][0].position}.</span>
+                                            <span class="driver">
+                                            <span style="display: inline-block; vertical-align: top;">
+                                                ${givenName}<br>
+                                                ${familyName}
+                                            </span>
+                                            </span>
+                                            </td>                                    
                                             <td>${resultsByDriver[fullName][0].constructor}</td>
                                             <td>${resultsByDriver[fullName][0].time}</td>
                                             <td>${resultsByDriver[fullName][0].fastestLapTime}</td>
