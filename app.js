@@ -18,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const resultsByDriver = {};
             xmlDoc.querySelectorAll('Result').forEach(result => {
+                xmlDoc.querySelectorAll('Result').forEach(result => {
+                    const givenName = getTextContent(result, 'GivenName');
+                    const familyName = getTextContent(result, 'FamilyName');
+                    const fullName = `${givenName} ${familyName}`;
+                
+                    // ... (resto del código)
+                });
+                
                 const driverName = `${getTextContent(result, 'GivenName')} ${getTextContent(result, 'FamilyName')}`;
 
                 if (!resultsByDriver[driverName]) {
@@ -82,18 +90,26 @@ document.addEventListener('DOMContentLoaded', function () {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${Object.keys(resultsByDriver).map(driverName => `
+                                ${Object.keys(resultsByDriver).map(fullName => {
+                                    const givenName = fullName.split(' ')[0];
+                                    const familyName = fullName.split(' ')[1];
+                                    return `
                                         <tr>
-                                            <td style="text-align:left;">
-                                                <span class="position" style="font-weight:bold;">${resultsByDriver[driverName][0].position}.</span>
-                                                <span class="driver">${driverName}</span>
+                                            <td style="text-align:left; white-space: nowrap;">
+                                                <span class="position" style="font-weight:bold;">${resultsByDriver[fullName][0].position}.</span>
+                                                <span class="driver">
+                                                    <span style="display: inline-block; vertical-align: top;">${givenName}</span>
+                                                    <span style="display: inline-block; vertical-align: top;">${familyName}</span>
+                                                </span>
                                             </td>
-                                            <td>${resultsByDriver[driverName][0].constructor}</td>
-                                            <td>${resultsByDriver[driverName][0].time}</td>
-                                            <td>${resultsByDriver[driverName][0].fastestLapTime}</td>
-                                            <td>${resultsByDriver[driverName][0].gridPosition}</td>
+                                            <td>${resultsByDriver[fullName][0].constructor}</td>
+                                            <td>${resultsByDriver[fullName][0].time}</td>
+                                            <td>${resultsByDriver[fullName][0].fastestLapTime}</td>
+                                            <td>${resultsByDriver[fullName][0].gridPosition}</td>
                                         </tr>
-                                    `).join('')}
+                                    `;
+                                }).join('')}
+                                
                                 </tbody>
                             </table>
                         </div>

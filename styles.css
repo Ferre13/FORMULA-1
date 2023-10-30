@@ -76,7 +76,7 @@ body {
     display: inline-block;
     width: 7%; /* Puedes ajustar el ancho según tus necesidades */
     text-align: left; /* Para alinear el texto a la derecha dentro de la caja */
-    margin-right: 200px;
+    white-space: nowrap;
 }
 @media only screen and (min-width: 1100px) {
     .section-box p {
@@ -88,7 +88,7 @@ body {
 }
 @media only screen and (min-width: 768px) and (max-width: 1099px) {
     .position {
-        margin-right: 15px;
+        margin-right: 17px;
     }
     .section-box p {
         font-size: 24px;
@@ -100,12 +100,14 @@ body {
         font-size: 20px;
     }
     .position {
-        margin-right: 20px; /* Ajusta según tu preferencia */
+        margin-right: 22px; /* Ajusta según tu preferencia */
     }
 }
 @media only screen and (max-width: 599px) {
     .section-box p {
         font-size: 15px;
     }
-
+    .position {
+        margin-right: 20px;
+    }
 }
