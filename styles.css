@@ -90,10 +90,14 @@ body {
     .position {
         margin-right: 15px;
     }
-}
-@media only screen and (min-width: 600px) and (max-width: 767px) {
     .section-box p {
         font-size: 24px;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    .section-box p {
+        font-size: 20px;
     }
     .position {
         margin-right: 20px; /* Ajusta según tu preferencia */
@@ -101,7 +105,7 @@ body {
 }
 @media only screen and (max-width: 599px) {
     .section-box p {
-        font-size: 18px;
+        font-size: 15px;
     }
 
 }

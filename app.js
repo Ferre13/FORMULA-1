@@ -25,20 +25,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 const position = result.getAttribute('position');
-                const gridPosition = getTextContent(result, 'Grid') || 'N/A';
+                let gridPosition = getTextContent(result, 'Grid');
+                if (gridPosition === '0') {
+                    gridPosition = 'PIT';
+                } else {
+                    gridPosition = gridPosition || 'N/A';
+                }
+                       
                 const constructor = getTextContent(result, 'Constructor Name');
                 const status = getTextContent(result, 'Status');
                 let time = getTextContent(result, 'Time');
                 const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
 
-                // Ajuste para los pilotos que no terminan
-                if (status !== 'Finished') {
-                    if (status.includes('+')) {
-                        time = status;
-                    } else {
-                        time = `${status} (DNF)`;
-                    }
+            // Ajuste para los pilotos que no terminan
+            if (status !== 'Finished') {
+                if (status.includes('+') || status === 'DISQUALIFIED') {
+                    time = status;
+                } else {
+                    time = `${status} (DNF)`;
                 }
+            }
+
+
 
                 resultsByDriver[driverName].push({
                     position,
