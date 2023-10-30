@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="result-sections section-box2">
                         <div class="result-section section-box">
                             <table class="result-table">
-                                <thead>
+                                <thead class="titles1">
                                     <tr>
                                         <th style="text-align: left; text-transform: uppercase;">Position/Driver</th>
                                         <th style="text-transform: uppercase;">Constructor</th>
