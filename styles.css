@@ -111,7 +111,9 @@ body {
     body {
         font-size: 88%;
     }
-
+    .titles1 {
+        font-size: 80%;
+    }
 }
 
 @media only screen and (max-width: 599px) {
@@ -128,6 +130,9 @@ body {
         padding: 5px; /* O el valor que prefieras para pantallas más pequeñas */
     }
     body {
+        font-size: 80%;
+    }
+    .titles1 {
         font-size: 80%;
     }
 }
