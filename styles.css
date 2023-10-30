@@ -76,19 +76,32 @@ body {
     display: inline-block;
     width: 7%; /* Puedes ajustar el ancho según tus necesidades */
     text-align: left; /* Para alinear el texto a la derecha dentro de la caja */
-    margin-right: 10px; /* Ajusta según tu preferencia */
+    margin-right: 200px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1100px) {
     .section-box p {
         font-size: 30px;
+    }
+    .position {
+        margin-right: 12px; /* Ajusta según tu preferencia */
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1099px) {
+    .position {
+        margin-right: 15px;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 767px) {
     .section-box p {
         font-size: 24px;
     }
-}@media only screen and (max-width: 599px) {
+    .position {
+        margin-right: 20px; /* Ajusta según tu preferencia */
+    }
+}
+@media only screen and (max-width: 599px) {
     .section-box p {
         font-size: 18px;
     }
+
 }
