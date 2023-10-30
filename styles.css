@@ -77,6 +77,7 @@ body {
     width: 7%; /* Puedes ajustar el ancho según tus necesidades */
     text-align: left; /* Para alinear el texto a la derecha dentro de la caja */
     margin-right: 15px;
+    
 }
 @media only screen and (min-width: 1100px) {
     .section-box p {
@@ -112,7 +113,7 @@ body {
         font-size: 88%;
     }
     .titles1 {
-        font-size: 80%;
+        font-size: 99%;
     }
 }
 
@@ -124,15 +125,88 @@ body {
         margin-right: 15px;
     }
     .section-box {
-        margin:  5px; /* O el valor que prefieras para pantallas más pequeñas */
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
     }
     .section-box2 {
-        padding: 5px; /* O el valor que prefieras para pantallas más pequeñas */
+        padding: 2px; /* O el valor que prefieras para pantallas más pequeñas */
     }
     body {
         font-size: 80%;
     }
     .titles1 {
-        font-size: 80%;
+        font-size: 99%;
+    }
+}
+@media only screen and (max-width: 550px) {
+    body {
+        font-size: 75%;
+    }
+    .titles1 {
+        font-size: 101%;
+    }
+}
+@media only screen and (max-width: 525px) {
+    body {
+        font-size: 70%;
+    }
+    .titles1 {
+        font-size: 103%;
+    }
+}
+@media only screen and (max-width: 507px) {
+    body {
+        font-size: 65%;
+    }
+    .titles1 {
+        font-size: 105%;
+    }
+}
+@media only screen and (max-width: 485px) {
+    body {
+        font-size: 60%;
+    }
+    .titles1 {
+        font-size: 110%;
+    }
+}
+@media only screen and (max-width: 466px) {
+    body {
+        font-size: 55%;
+    }
+    .titles1 {
+        font-size: 115%;
+    }
+}
+@media only screen and (max-width: 430px) {
+    body {
+        font-size: 50%;
+    }
+    .titles1 {
+        font-size: 115%;
+    }
+}
+@media only screen and (max-width: 400px) {
+    body {
+        font-size: 48%;
+    }
+    .titles1 {
+        font-size: 120%;
+    }
+}
+
+
+@media only screen and (max-width: 700px) {
+    .section-box p {
+        font-size: 150%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .section-box p {
+        font-size: 15px;
+    }
+}
+@media only screen and (max-width: 390px) {
+    .section-box p {
+        font-size: 12px;
     }
 }
