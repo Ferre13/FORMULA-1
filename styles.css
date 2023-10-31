@@ -244,7 +244,7 @@ body {
         left: 30px;
     }
 }
-@media only screen and (max-width: 370px) {
+@media only screen and (max-width: 400px) {
     .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
     .result-table th:nth-child(2) {
         display: none;
