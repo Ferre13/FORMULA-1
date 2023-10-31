@@ -233,7 +233,7 @@ body {
         font-size: 12px;
     }
     .position {
-        position: fixed;
+        position: absolute;
         left: 22px;
     }
 }
