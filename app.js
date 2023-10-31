@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <thead class="titles1">
                                     <tr>
                                         <th style="text-align: left; text-transform: uppercase;">Position/Driver</th>
-                                        <th style="text-transform: uppercase;">Constructor</th>
+                                        <th class="titles2" style="text-transform: uppercase;">Constructor</th>
                                         <th style="text-transform: uppercase;">Time</th>
                                         <th style="text-transform: uppercase;">Fastest Lap</th>
                                         <th style="text-transform: uppercase;">Grid</th>

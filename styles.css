@@ -171,13 +171,13 @@ body {
 }
 @media only screen and (max-width: 466px) {
     body {
-        font-size: 55%;
+        font-size: 52%;
     }
     .titles1 {
         font-size: 115%;
     }
 }
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 425px) {
     body {
         font-size: 50%;
     }
@@ -185,15 +185,38 @@ body {
         font-size: 115%;
     }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 415px) {
     body {
-        font-size: 48%;
+        font-size: 45%;
     }
     .titles1 {
         font-size: 120%;
     }
 }
-
+@media only screen and (max-width: 375px) {
+    body {
+        font-size: 40%;
+    }
+    .titles1 {
+        font-size: 125%;
+    }
+}
+@media only screen and (max-width: 360px) {
+    body {
+        font-size: 35%;
+    }
+    .titles1 {
+        font-size: 140%;
+    }
+}
+@media only screen and (max-width: 350px) {
+    body {
+        font-size: 30%;
+    }
+    .titles1 {
+        font-size: 165%;
+    }
+}
 
 @media only screen and (max-width: 700px) {
     .section-box p {
