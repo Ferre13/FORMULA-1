@@ -244,3 +244,32 @@ body {
         left: 30px;
     }
 }
+@media only screen and (max-width: 320px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    .result-table th:nth-child(2) {
+        display: none;
+    }
+
+    /* También puedes ajustar el estilo de las demás columnas para que se vea bien sin la columna del constructor */
+    .result-table td {
+        width: auto;
+    }
+
+    .position {
+        margin-right: 0; /* Ajusta el margen derecho para que el número de posición esté más cerca del borde */
+    }
+    body {
+        font-size: 50%;
+    }
+    .titles1 {
+        font-size: 100%;
+    }
+}
+@media only screen and (max-width: 315px) {
+    body {
+        font-size: 40%;
+    }
+    .titles1 {
+        font-size: 100%;
+    }
+}
