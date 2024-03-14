@@ -121,9 +121,15 @@ body {
     }
 }
 
-@media only screen and (max-width: 599px) {
+@media only screen and (max-width: 700px) {
     .section-box p {
-        font-size: 10px;
+        font-size: 150%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .section-box p {
+        font-size: 20px;
     }
     .position {
         margin-right: 15px;
@@ -165,6 +171,18 @@ body {
         font-size: 105%;
     }
 }
+@media only screen and (max-width: 500px) {
+    .section-box p {
+        font-size: 15px;
+    }
+    .position {
+        position: absolute;
+        left: 25px;
+    }
+    .driver {
+        margin-left: 10px;
+    }
+}
 @media only screen and (max-width: 485px) {
     body {
         font-size: 60%;
@@ -197,57 +215,6 @@ body {
         font-size: 118%;
     }
 }
-@media only screen and (max-width: 375px) {
-    body {
-        font-size: 40%;
-    }
-    .titles1 {
-        font-size: 115%;
-    }
-}
-@media only screen and (max-width: 360px) {
-    body {
-        font-size: 35%;
-    }
-    .titles1 {
-        font-size: 120%;
-    }
-}
-@media only screen and (max-width: 350px) {
-    body {
-        font-size: 30%;
-    }
-    .titles1 {
-        font-size: 125%;
-    }
-}
-
-@media only screen and (max-width: 700px) {
-    .section-box p {
-        font-size: 150%;
-    }
-}
-@media only screen and (max-width: 500px) {
-    .section-box p {
-        font-size: 15px;
-    }
-    .position {
-        position: absolute;
-        left: 25px;
-    }
-    .driver {
-        margin-left: 10px;
-    }
-}
-@media only screen and (max-width: 390px) {
-    .section-box p {
-        font-size: 12px;
-    }
-    .position {
-        position: absolute;
-        left: 30px;
-    }
-}
 @media only screen and (max-width: 400px) {
     .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
     .result-table th:nth-child(2) {
@@ -263,15 +230,58 @@ body {
         margin-right: 0; /* Ajusta el margen derecho para que el número de posición esté más cerca del borde */
     }
     body {
-        font-size: 50%;
+        font-size: 70%;
+    }
+    .titles1 {
+        font-size: 100%;
+    }
+    .section-box p {
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 390px) {
+    .section-box p {
+        font-size: 12px;
+    }
+    .position {
+        position: absolute;
+        left: 30px;
+    }
+    body {
+        font-size: 60%;
     }
     .titles1 {
         font-size: 100%;
     }
 }
+@media only screen and (max-width: 375px) {
+    body {
+        font-size: 60%;
+    }
+    .titles1 {
+        font-size: 100%;
+    }
+}
+@media only screen and (max-width: 360px) {
+    body {
+        font-size: 50%;
+    }
+    .titles1 {
+        font-size: 120%;
+    }
+}
+@media only screen and (max-width: 350px) {
+    body {
+        font-size: 45%;
+    }
+    .titles1 {
+        font-size: 125%;
+    }
+}
+
 @media only screen and (max-width: 315px) {
     body {
-        font-size: 40%;
+        font-size: 45%;
     }
     .titles1 {
         font-size: 40%;
