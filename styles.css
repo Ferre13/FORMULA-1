@@ -200,7 +200,7 @@ body {
     }
 }
 
-@media only screen and (min-width: 0px) and (max-width: 595px) {
+@media only screen and (min-width: 523px) and (max-width: 595px) {
     .section-box p {
         font-size: 15px;
     }
@@ -221,5 +221,146 @@ body {
     }
     .constructor-logo {
         height: 20px;
+    }
+}
+
+@media only screen and (min-width: 484px) and (max-width: 523px) {
+    .section-box p {
+        font-size: 13px;
+    }
+    .position {
+        margin-right: 10px; /* Ajusta según tu preferencia */
+    }
+    .section-box {
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .section-box2 {
+        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    body {
+        font-size: 65%;
+    }
+    .titles1 {
+        font-size: 90%;
+    }
+    .constructor-logo {
+        height: 18px;
+    }
+    .constructor-name {
+        font-size: 80%;
+    }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 484px) {
+    .section-box p {
+        font-size: 13px;
+    }
+    .position {
+        margin-right: 9px; /* Ajusta según tu preferencia */
+    }
+    .section-box {
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .section-box2 {
+        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    body {
+        font-size: 57%;
+    }
+    .constructor-name {
+        font-size: 85%;
+    }
+    .titles1 {
+        font-size: 90%;
+    }
+    .constructor-logo {
+        height: 18px;
+    }
+}
+
+@media only screen and (min-width: 396px) and (max-width: 450px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    .result-table th:nth-child(2) {
+        display: none;
+    }
+
+    .result-table td {
+        width: auto;
+    }
+    .section-box {
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .section-box2 {
+        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .position {
+        margin-right: 10; 
+    }
+    body {
+        font-size: 70%;
+    }
+    .titles1 {
+        font-size: 90%;
+    }
+    .section-box p {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 381px) and (max-width: 396px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    .result-table th:nth-child(2) {
+        display: none;
+    }
+
+    .result-table td {
+        width: auto;
+    }
+    .section-box {
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .section-box2 {
+        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .position {
+        margin-right: 10; 
+    }
+    body {
+        font-size: 66%;
+    }
+    .titles1 {
+        font-size: 90%;
+    }
+    .section-box p {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 381px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    .result-table th:nth-child(2) {
+        display: none;
+    }
+
+    .result-table td {
+        width: auto;
+    }
+    .section-box {
+        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .section-box2 {
+        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    }
+    .position {
+        margin-right: 10; 
+    }
+    body {
+        font-size: 60%;
+    }
+    .titles1 {
+        font-size: 90%;
+    }
+    .section-box p {
+        font-size: 13px;
     }
 }
