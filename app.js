@@ -26,58 +26,96 @@ document.addEventListener('DOMContentLoaded', function () {
         'Alpine F1 Team': 'img/alpine.png',
     };
 
-    fetch('https://ergast.com/api/f1/current/last/results')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(xmlData => {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
+    // Función para obtener datos de la API
+    function fetchDataFromAPI() {
+        console.log('Fetching data from API...');
+        const startTime = performance.now();
 
-            const raceName = getTextContent(xmlDoc, 'RaceName');
-            const circuitName = getTextContent(xmlDoc, 'CircuitName');
-            const location = `${getTextContent(xmlDoc, 'Locality')}, ${getTextContent(xmlDoc, 'Country')}`;
-
-            const resultsByDriver = {};
-            xmlDoc.querySelectorAll('Result').forEach(result => {
-                const givenName = getTextContent(result, 'GivenName');
-                const familyName = getTextContent(result, 'FamilyName');
-                const fullName = `${givenName} ${familyName}`;
-
-                if (!resultsByDriver[fullName]) {
-                    resultsByDriver[fullName] = [];
+        return fetch('https://ergast.com/api/f1/current/last/results')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-
-                const position = result.getAttribute('position');
-                let gridPosition = getTextContent(result, 'Grid');
-                if (gridPosition === '0') {
-                    gridPosition = 'PIT';
+                return response.text();
+            })
+            .then(xmlData => {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
+                const data = parseXMLData(xmlDoc);
+                
+                // Verificar si se obtuvieron resultados válidos
+                if (data && Object.keys(data.resultsByDriver).length > 0) {
+                    localStorage.setItem('raceData', JSON.stringify(data));
+                    const endTime = performance.now();
+                    console.log(`API Data fetched in ${endTime - startTime} ms`);
+                    return data;
                 } else {
-                    gridPosition = gridPosition || 'N/A';
+                    throw new Error('No data returned from API');
                 }
-
-                const constructor = getTextContent(result, 'Constructor Name');
-                const status = getTextContent(result, 'Status');
-                let time = getTextContent(result, 'Time');
-                const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
-
-                if (status !== 'Finished') {
-                    time = status.includes('+') || status === 'DISQUALIFIED' ? status : `${status} (DNF)`;
-                }
-
-                resultsByDriver[fullName].push({
-                    position,
-                    gridPosition,
-                    constructor,
-                    time,
-                    fastestLapTime,
-                });
             });
+    }
 
-            const infoString = `
+    // Función para analizar datos XML
+    function parseXMLData(xmlDoc) {
+        const raceName = getTextContent(xmlDoc, 'RaceName');
+        const circuitName = getTextContent(xmlDoc, 'CircuitName');
+        const location = `${getTextContent(xmlDoc, 'Locality')}, ${getTextContent(xmlDoc, 'Country')}`;
+
+        const resultsByDriver = {};
+        xmlDoc.querySelectorAll('Result').forEach(result => {
+            const givenName = getTextContent(result, 'GivenName');
+            const familyName = getTextContent(result, 'FamilyName');
+            const fullName = `${givenName} ${familyName}`;
+
+            if (!resultsByDriver[fullName]) {
+                resultsByDriver[fullName] = [];
+            }
+
+            const position = result.getAttribute('position');
+            let gridPosition = getTextContent(result, 'Grid');
+            if (gridPosition === '0') {
+                gridPosition = 'PIT';
+            } else {
+                gridPosition = gridPosition || 'N/A';
+            }
+
+            const constructor = getTextContent(result, 'Constructor Name');
+            const status = getTextContent(result, 'Status');
+            let time = getTextContent(result, 'Time');
+            const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
+
+            if (status !== 'Finished') {
+                time = status.includes('+') || status === 'DISQUALIFIED' ? status : `${status} (DNF)`;
+            }
+
+            resultsByDriver[fullName].push({
+                position,
+                gridPosition,
+                constructor,
+                time,
+                fastestLapTime,
+            });
+        });
+
+        return { raceName, circuitName, location, resultsByDriver };
+    }
+
+    // Función para obtener el contenido de texto de un elemento
+    function getTextContent(element, tagName) {
+        const targetElement = element.querySelector(tagName);
+        return targetElement ? targetElement.textContent.trim() : 'N/A';
+    }
+
+    // Función para renderizar los datos
+    function renderData(data) {
+        const { raceName, circuitName, location, resultsByDriver } = data;
+
+        if (!resultsByDriver || Object.keys(resultsByDriver).length === 0) {
+            hudDataElement.textContent = 'No hay datos disponibles para mostrar.';
+            return;
+        }
+
+        const infoString = `
             <div class="container">
                 <div class="section-box">
                     <p style="font-weight: bold;">RACE: ${raceName}</p>
@@ -120,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         </td>
                                         <td style="color: ${['McLaren', 'Red Bull'].includes(resultsByDriver[fullName][0].constructor) ? teamColors[resultsByDriver[fullName][0].constructor] : 'inherit'};">
                                             <img src="${constructorLogo}" alt="${resultsByDriver[fullName][0].constructor}" class="constructor-logo">
-                                            ${['McLaren', 'Red Bull', 'Haas F1 Team', 'Alpine F1 Team', 'Aston Martin'].includes(resultsByDriver[fullName][0].constructor) ? '' : resultsByDriver[fullName][0].constructor}
+                                            ${showConstructorName ? resultsByDriver[fullName][0].constructor : ''}
                                         </td>
                                         <td>${resultsByDriver[fullName][0].time}</td>
                                         <td>${resultsByDriver[fullName][0].fastestLapTime}</td>
@@ -134,29 +172,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             </div>
         `;
-        
-        
-        
 
-            hudDataElement.innerHTML = infoString;
+        hudDataElement.innerHTML = infoString;
 
-            document.querySelectorAll('.result-table tbody tr').forEach(row => {
-                const positionDriverCell = row.children[0];
-                const constructorCell = row.children[1];
-                const team = constructorCell.textContent.trim();
-                if (teamColors[team]) {
-                    positionDriverCell.style.color = teamColors[team];
-                    constructorCell.style.color = teamColors[team];
+        document.querySelectorAll('.result-table tbody tr').forEach(row => {
+            const positionDriverCell = row.children[0];
+            const constructorCell = row.children[1];
+            const team = constructorCell.textContent.trim();
+            if (teamColors[team]) {
+                positionDriverCell.style.color = teamColors[team];
+                constructorCell.style.color = teamColors[team];
+            }
+        });
+    }
+
+    // Función para cargar y renderizar los datos desde localStorage
+    function loadFromLocalStorage() {
+        console.log('Loading data from localStorage...');
+        const startTime = performance.now();
+
+        const storedData = localStorage.getItem('raceData');
+        if (storedData) {
+            try {
+                const data = JSON.parse(storedData);
+                if (data && data.resultsByDriver) {
+                    renderData(data);
+                } else {
+                    hudDataElement.textContent = 'No hay datos almacenados disponibles.';
                 }
-            });
+            } catch (error) {
+                console.error('Error parsing localStorage data:', error);
+                hudDataElement.textContent = 'Error al cargar datos almacenados.';
+            }
+
+            const endTime = performance.now();
+            console.log(`LocalStorage Data loaded in ${endTime - startTime} ms`);
+        } else {
+            hudDataElement.textContent = 'No hay datos almacenados disponibles.';
+        }
+    }
+
+    // Intenta cargar datos desde localStorage primero
+    loadFromLocalStorage();
+
+    // Luego intenta obtener datos desde la API en segundo plano
+    fetchDataFromAPI()
+        .then(data => {
+            console.log('Data from API:', data);
+            renderData(data); // Actualiza la visualización con los datos más recientes de la API
         })
         .catch(error => {
             console.error('Error al hacer la solicitud:', error);
-            hudDataElement.textContent = 'Error al obtener datos';
+            loadFromLocalStorage(); // Intenta cargar datos almacenados si la API falla
         });
 });
-
-function getTextContent(element, tagName) {
-    const targetElement = element.querySelector(tagName);
-    return targetElement ? targetElement.textContent.trim() : 'N/A';
-}
