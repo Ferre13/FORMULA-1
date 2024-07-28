@@ -1,414 +1,414 @@
 @font-face {
-    font-family:'Orbitron';
-    src:url(fonts/orbitron-v31-latin-regular.woff2) format("woff2");
-    font-weight:400;
-    font-style:normal
-    }
-    
-    body {
-    font-family:'Orbitron';
-    background-color:#121416;
-    margin:200px auto;
-    padding:0
-    }
-    
-    .section-box2 {
-    border:2px solid #2D3031;
-    border-radius:15px;
-    padding:10px;
-    margin-bottom:20px;
-    color:#C6FC0E;
-    background-color:#2D3031
-    }
-    
-    .section-box {
-    display:inline-block;
-    margin:0 20px
-    }
-    
-    .container {
-    text-align:center;
-    width:100%;
-    padding:0;
-    box-sizing:border-box
-    }
-    
-    .result-table {
-    width:100%;
-    border-collapse:collapse
-    }
-    
-    .result-table th,.result-table td {
-    padding:10px;
-    text-align:center;
-    border:none
-    }
-    
-    .result-table tr {
-    border-bottom:3px solid #2D3031
-    }
-    
-    .result-table tr:last-child {
-    border-bottom:none
-    }
-    
-    .result-table thead {
-    border-bottom:3px solid #24282b
-    }
-    
-    .constructor-logo {
-    height:30px;
-    width:auto;
-    vertical-align:middle;
-    margin-right:10px
-    }
-    
-    .section-box,.result-box,.table,.header,.row,.column {
-    border:2px solid #2D3031;
-    border-radius:15px;
-    padding:10px;
-    margin-bottom:20px;
-    color:#C6FC0E;
-    background-color:#4E575C
-    }
-    
-    .section-title {
-    font-weight:700;
-    font-size:1.2em;
-    margin-bottom:10px
-    }
-    
-    .section-box p,.result-box p {
-    margin:0
-    }
-    
-    .header {
-    display:flex;
-    font-weight:700
-    }
-    
-    .column {
-    flex:1;
-    text-align:center
-    }
-    
-    .row {
-    display:flex
-    }
-    
-    .table {
-    display:flex;
-    flex-direction:column
-    }
-    
-    .result-table td {
-    width:1%;
-    padding:10px;
-    text-align:center
-    }
-    
-    .result-table th {
-    text-align:center
-    }
-    
-    .position {
-    display:inline-block;
-    width:7%;
-    text-align:left;
-    margin-right:15px
-    }
-    
-    @media only screen and (min-width: 1100px) {
+    font-family: 'Orbitron';
+    src: url('fonts/orbitron-v31-latin-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal; /* Punto y coma agregado */
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #121416;
+    margin: 200; /* Ajustado a 0 */
+    padding: 0;
+}
+
+.section-box2 {
+    border: 2px solid #2D3031;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #C6FC0E;
+    background-color: #2D3031;
+}
+
+.section-box {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    padding: 0; /* Ajustado a 0 */
+    box-sizing: border-box;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result-table th, .result-table td {
+    padding: 10px;
+    text-align: center;
+    border: none;
+}
+
+.result-table tr {
+    border-bottom: 3px solid #2D3031;
+}
+
+.result-table tr:last-child {
+    border-bottom: none;
+}
+
+.result-table thead {
+    border-bottom: 3px solid #24282b;
+}
+
+.constructor-logo {
+    height: 30px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.section-box, .result-box, .table, .header, .row, .column {
+    border: 2px solid #2D3031;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #C6FC0E;
+    background-color: #4E575C;
+}
+
+.section-title {
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.section-box p, .result-box p {
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    font-weight: 700;
+}
+
+.column {
+    flex: 1;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-table td {
+    width: 1%;
+    padding: 10px;
+    text-align: center;
+}
+
+.result-table th {
+    text-align: center;
+}
+
+.position {
+    display: inline-block;
+    width: 7%;
+    text-align: left;
+    margin-right: 15px;
+}
+
+@media only screen and (min-width: 1100px) {
     .section-box p {
-    font-size:30px
+        font-size: 30px;
     }
     
     .position {
-    margin-right:12px
+        margin-right: 12px;
     }
-    }
-    
-    @media only screen and (min-width: 768px) and (max-width: 1099px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1099px) {
     .position {
-    margin-right:17px
+        margin-right: 17px;
     }
     
     .section-box p {
-    font-size:24px
+        font-size: 24px;
     }
-    }
-    
-    .name-container {
-    display:inline-block;
-    vertical-align:top
-    }
-    
+}
+
+.name-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.family-name {
+    display: block;
+}
+
+@media (min-width: 944px) {
     .family-name {
-    display:block
+        display: inline;
+        margin-top: 10px;
     }
-    
-    @media (min-width: 944px) {
-    .family-name {
-    display:inline;
-    margin-top:10px
-    }
-    }
-    
-    @media only screen and (min-width: 655px) and (max-width: 767px) {
+}
+
+@media only screen and (min-width: 655px) and (max-width: 767px) {
     .section-box p {
-    font-size:15px
+        font-size: 15px;
     }
     
     .position {
-    margin-right:18px
+        margin-right: 18px;
     }
     
     .section-box {
-    margin:5px
+        margin: 5px;
     }
     
     .section-box2 {
-    padding:5px
+        padding: 5px;
     }
     
     body {
-    font-size:88%
+        font-size: 88%;
     }
     
     .titles1 {
-    font-size:99%
+        font-size: 99%;
     }
-    }
-    
-    @media only screen and (min-width: 595px) and (max-width: 655px) {
+}
+
+@media only screen and (min-width: 595px) and (max-width: 655px) {
     .section-box p {
-    font-size:15px
+        font-size: 15px;
     }
     
     .position {
-    margin-right:10px
+        margin-right: 10px;
     }
     
     .section-box {
-    margin:2px
+        margin: 2px;
     }
     
     .section-box2 {
-    padding:1px
+        padding: 1px;
     }
     
     body {
-    font-size:83%
+        font-size: 83%;
     }
     
     .titles1 {
-    font-size:95%
+        font-size: 95%;
     }
     
     .constructor-logo {
-    height:20px
+        height: 20px;
     }
-    }
-    
-    @media only screen and (min-width: 523px) and (max-width: 595px) {
+}
+
+@media only screen and (min-width: 523px) and (max-width: 595px) {
     .section-box p {
-    font-size:15px
+        font-size: 15px;
     }
     
     .position {
-    margin-right:13px
+        margin-right: 13px;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:1px
+        padding: 1px;
     }
     
     body {
-    font-size:70%
+        font-size: 70%;
     }
     
     .titles1 {
-    font-size:95%
+        font-size: 95%;
     }
     
     .constructor-logo {
-    height:20px
+        height: 20px;
     }
-    }
-    
-    @media only screen and (min-width: 484px) and (max-width: 523px) {
+}
+
+@media only screen and (min-width: 484px) and (max-width: 523px) {
     .section-box p {
-    font-size:13px
+        font-size: 13px;
     }
     
     .position {
-    margin-right:10px
+        margin-right: 10px;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:0
+        padding: 0;
     }
     
     body {
-    font-size:65%
+        font-size: 65%;
     }
     
     .titles1 {
-    font-size:90%
+        font-size: 90%;
     }
     
     .constructor-logo {
-    height:18px
+        height: 18px;
     }
     
     .constructor-name {
-    font-size:80%
+        font-size: 80%;
     }
-    }
-    
-    @media only screen and (min-width: 450px) and (max-width: 484px) {
+}
+
+@media only screen and (min-width: 450px) and (max-width: 484px) {
     .section-box p {
-    font-size:13px
+        font-size: 13px;
     }
     
     .position {
-    margin-right:9px
+        margin-right: 9px;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:0
+        padding: 0;
     }
     
     body {
-    font-size:57%
+        font-size: 57%;
     }
     
     .constructor-name {
-    font-size:85%
+        font-size: 85%;
     }
     
     .titles1 {
-    font-size:90%
+        font-size: 90%;
     }
     
     .constructor-logo {
-    height:18px
+        height: 18px;
     }
-    }
-    
-    @media only screen and (min-width: 396px) and (max-width: 450px) {
-    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
+}
+
+@media only screen and (min-width: 396px) and (max-width: 450px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
     .result-table th:nth-child(2) {
-    display:none
+        display: none;
     }
     
     .result-table td {
-    width:auto
+        width: auto;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:0
+        padding: 0;
     }
     
     .position {
-    margin-right:10px
+        margin-right: 10px;
     }
     
     body {
-    font-size:70%
+        font-size: 70%;
     }
     
     .titles1 {
-    font-size:90%
+        font-size: 90%;
     }
     
     .section-box p {
-    font-size:14px
+        font-size: 14px;
     }
-    }
-    
-    @media only screen and (min-width: 381px) and (max-width: 396px) {
-    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
+}
+
+@media only screen and (min-width: 381px) and (max-width: 396px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
     .result-table th:nth-child(2) {
-    display:none
+        display: none;
     }
     
     .result-table td {
-    width:auto
+        width: auto;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:0
+        padding: 0;
     }
     
     .position {
-    margin-right:10px
+        margin-right: 10px;
     }
     
     body {
-    font-size:66%
+        font-size: 66%;
     }
     
     .titles1 {
-    font-size:90%
+        font-size: 90%;
     }
     
     .section-box p {
-    font-size:14px
+        font-size: 14px;
     }
-    }
-    
-    @media only screen and (min-width: 0px) and (max-width: 381px) {
-    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
+}
+
+@media only screen and (min-width: 0px) and (max-width: 381px) {
+    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
     .result-table th:nth-child(2) {
-    display:none
+        display: none;
     }
     
     .result-table td {
-    width:auto
+        width: auto;
     }
     
     .section-box {
-    margin:1px
+        margin: 1px;
     }
     
     .section-box2 {
-    padding:0
+        padding: 0;
     }
     
     .position {
-    margin-right:10px
+        margin-right: 10px;
     }
     
     body {
-    font-size:60%
+        font-size: 60%;
     }
     
     .titles1 {
-    font-size:90%
+        font-size: 90%;
     }
     
     .section-box p {
-    font-size:13px
+        font-size: 13px;
     }
-    }
+}
