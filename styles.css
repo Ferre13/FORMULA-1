@@ -16,7 +16,7 @@ body {
     border: 2px solid #2D3031;
     border-radius: 15px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     color: #C6FC0E;
     background-color: #2D3031;
 }
@@ -67,15 +67,9 @@ body {
     border: 2px solid #2D3031;
     border-radius: 15px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #C6FC0E;
     background-color: #4E575C;
-}
-
-.section-title {
-    font-weight: 700;
-    font-size: 1.2em;
-    margin-bottom: 10px;
 }
 
 .section-box p, .result-box p {
