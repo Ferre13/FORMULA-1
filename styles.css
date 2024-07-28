@@ -1,366 +1,414 @@
-body {
-    font-family: 'Orbitron';
-    background-color: #121416;
-    margin: 200 auto;
-    padding: 0;
+@font-face {
+    font-family:'Orbitron';
+    src:url(fonts/orbitron-v31-latin-regular.woff2) format("woff2");
+    font-weight:400;
+    font-style:normal
+    }
     
-}
-.section-box2 {
-    border: 2px solid #2D3031;
-    border-radius: 15px;
-    padding: 10px;
-    margin-bottom: 20px;
-    color: #C6FC0E;
-    background-color: #2D3031;
-}
-.section-box {
-    display: inline-block;
-    margin: 0 20px; /* Ajusta el margen según tu preferencia */
-}
-
-.container {
-    text-align: center; /* Centra el contenido en el contenedor principal */
-}
-
-.container {
-    width: 100%; /* Asegura que el contenedor ocupe el ancho completo del área visible */
-    padding: 0; /* Elimina el padding para evitar que el contenido se comprima */
-    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
-}
-
-.result-table {
-    width: 100%; /* Asegura que la tabla ocupe el ancho completo del contenedor */
-    border-collapse: collapse; /* Asegura que no haya espacio entre las celdas y los bordes */
-}
-
-.result-table th,
-.result-table td {
-    padding: 10px; /* Espacio dentro de cada celda */
-    text-align: center; /* Alinea el texto al centro */
-    border: none; /* Elimina los bordes de las celdas */
-}
-
-.result-table tr {
-    border-bottom: 3px solid #2D3031; /* Línea entre filas */
-}
-
-.result-table tr:last-child {
-    border-bottom: none; /* Opcional: elimina el borde en la última fila */
-}
-.result-table thead {
-    border-bottom: 3px solid #24282b; /* Línea horizontal entre el encabezado y el cuerpo de la tabla */
-}
-
-
-.constructor-logo {
-    height: 30px; /* Ajusta según el tamaño deseado */
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px; /* Espacio entre el logo y el texto */
-}
-
-.section-box, .result-box, .table, .header, .row, .column {
-    border: 2px solid #2D3031;
-    border-radius: 15px;
-    padding: 10px;
-    margin-bottom: 20px;
-    color: #C6FC0E;
-    background-color: #4E575C;
-}
-
-.section-title {
-    font-weight: bold;
-    font-size: 1.2em; /* Puedes ajustar el tamaño del texto según tu preferencia */
-    margin-bottom: 10px; /* Espacio entre el título y el contenido */
-}
-
-.section-box p, .result-box p {
-    margin: 0;
-}
-
-
-.header {
-    display: flex;
-    font-weight: bold;
-}
-
-.column {
-    flex: 1;
-    text-align: center;
-}
-
-
-.row {
-    display: flex;
-}
-
-.table {
-    display: flex;
-    flex-direction: column;
-}
-.result-table td {
-    width: 1%; /* Ajusta la cantidad de espacio según tu preferencia */
-}
-.result-table td {
-    padding: 10px; /* Ajusta la cantidad de espacio según tu preferencia */
-    text-align: center; /* Centra el contenido horizontalmente */
-}
-
-
-
-.result-table th {
-    text-align: center; /* Centra el contenido horizontalmente en las celdas de encabezado */
-}
-
-.position {
-    display: inline-block;
-    width: 7%; /* Puedes ajustar el ancho según tus necesidades */
-    text-align: left; /* Para alinear el texto a la derecha dentro de la caja */
-    margin-right: 15px;
+    body {
+    font-family:'Orbitron';
+    background-color:#121416;
+    margin:200px auto;
+    padding:0
+    }
     
-}
-@media only screen and (min-width: 1100px) {
-    .section-box p {
-        font-size: 30px;
+    .section-box2 {
+    border:2px solid #2D3031;
+    border-radius:15px;
+    padding:10px;
+    margin-bottom:20px;
+    color:#C6FC0E;
+    background-color:#2D3031
     }
+    
+    .section-box {
+    display:inline-block;
+    margin:0 20px
+    }
+    
+    .container {
+    text-align:center;
+    width:100%;
+    padding:0;
+    box-sizing:border-box
+    }
+    
+    .result-table {
+    width:100%;
+    border-collapse:collapse
+    }
+    
+    .result-table th,.result-table td {
+    padding:10px;
+    text-align:center;
+    border:none
+    }
+    
+    .result-table tr {
+    border-bottom:3px solid #2D3031
+    }
+    
+    .result-table tr:last-child {
+    border-bottom:none
+    }
+    
+    .result-table thead {
+    border-bottom:3px solid #24282b
+    }
+    
+    .constructor-logo {
+    height:30px;
+    width:auto;
+    vertical-align:middle;
+    margin-right:10px
+    }
+    
+    .section-box,.result-box,.table,.header,.row,.column {
+    border:2px solid #2D3031;
+    border-radius:15px;
+    padding:10px;
+    margin-bottom:20px;
+    color:#C6FC0E;
+    background-color:#4E575C
+    }
+    
+    .section-title {
+    font-weight:700;
+    font-size:1.2em;
+    margin-bottom:10px
+    }
+    
+    .section-box p,.result-box p {
+    margin:0
+    }
+    
+    .header {
+    display:flex;
+    font-weight:700
+    }
+    
+    .column {
+    flex:1;
+    text-align:center
+    }
+    
+    .row {
+    display:flex
+    }
+    
+    .table {
+    display:flex;
+    flex-direction:column
+    }
+    
+    .result-table td {
+    width:1%;
+    padding:10px;
+    text-align:center
+    }
+    
+    .result-table th {
+    text-align:center
+    }
+    
     .position {
-        margin-right: 12px; /* Ajusta según tu preferencia */
+    display:inline-block;
+    width:7%;
+    text-align:left;
+    margin-right:15px
     }
-}
-@media only screen and (min-width: 768px) and (max-width: 1099px) {
-    .position {
-        margin-right: 17px;
-    }
+    
+    @media only screen and (min-width: 1100px) {
     .section-box p {
-        font-size: 24px;
+    font-size:30px
     }
-}
-
-.name-container {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.family-name {
-    display: block; /* Inicialmente oculta el salto de línea */
-}
-
-
-
-@media (min-width: 944px) { /* Cambia 768px al tamaño de pantalla deseado */
+    
+    .position {
+    margin-right:12px
+    }
+    }
+    
+    @media only screen and (min-width: 768px) and (max-width: 1099px) {
+    .position {
+    margin-right:17px
+    }
+    
+    .section-box p {
+    font-size:24px
+    }
+    }
+    
+    .name-container {
+    display:inline-block;
+    vertical-align:top
+    }
+    
     .family-name {
-        display: inline; /* Muestra el salto de línea a partir de este tamaño de pantalla */
-        margin-top: 10px; /* Ajusta el espacio según tus necesidades */
+    display:block
     }
-}
-
-
-@media only screen and (min-width: 655px) and (max-width: 767px) {
+    
+    @media (min-width: 944px) {
+    .family-name {
+    display:inline;
+    margin-top:10px
+    }
+    }
+    
+    @media only screen and (min-width: 655px) and (max-width: 767px) {
     .section-box p {
-        font-size: 15px;
+    font-size:15px
     }
+    
     .position {
-        margin-right: 18px; /* Ajusta según tu preferencia */
+    margin-right:18px
     }
+    
     .section-box {
-        margin:  5px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:5px
     }
+    
     .section-box2 {
-        padding: 5px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:5px
     }
+    
     body {
-        font-size: 88%;
+    font-size:88%
     }
+    
     .titles1 {
-        font-size: 99%;
+    font-size:99%
     }
-}
-
-@media only screen and (min-width: 595px) and (max-width: 655px) {
+    }
+    
+    @media only screen and (min-width: 595px) and (max-width: 655px) {
     .section-box p {
-        font-size: 15px;
+    font-size:15px
     }
+    
     .position {
-        margin-right: 10px; /* Ajusta según tu preferencia */
+    margin-right:10px
     }
+    
     .section-box {
-        margin:  2px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:2px
     }
+    
     .section-box2 {
-        padding: 1px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:1px
     }
+    
     body {
-        font-size: 83%;
+    font-size:83%
     }
+    
     .titles1 {
-        font-size: 95%;
+    font-size:95%
     }
+    
     .constructor-logo {
-        height: 20px;
+    height:20px
     }
-}
-
-@media only screen and (min-width: 523px) and (max-width: 595px) {
+    }
+    
+    @media only screen and (min-width: 523px) and (max-width: 595px) {
     .section-box p {
-        font-size: 15px;
+    font-size:15px
     }
+    
     .position {
-        margin-right: 13px; /* Ajusta según tu preferencia */
+    margin-right:13px
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 1px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:1px
     }
+    
     body {
-        font-size: 70%;
+    font-size:70%
     }
+    
     .titles1 {
-        font-size: 95%;
+    font-size:95%
     }
+    
     .constructor-logo {
-        height: 20px;
+    height:20px
     }
-}
-
-@media only screen and (min-width: 484px) and (max-width: 523px) {
+    }
+    
+    @media only screen and (min-width: 484px) and (max-width: 523px) {
     .section-box p {
-        font-size: 13px;
+    font-size:13px
     }
+    
     .position {
-        margin-right: 10px; /* Ajusta según tu preferencia */
+    margin-right:10px
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:0
     }
+    
     body {
-        font-size: 65%;
+    font-size:65%
     }
+    
     .titles1 {
-        font-size: 90%;
+    font-size:90%
     }
+    
     .constructor-logo {
-        height: 18px;
+    height:18px
     }
+    
     .constructor-name {
-        font-size: 80%;
+    font-size:80%
     }
-}
-
-@media only screen and (min-width: 450px) and (max-width: 484px) {
+    }
+    
+    @media only screen and (min-width: 450px) and (max-width: 484px) {
     .section-box p {
-        font-size: 13px;
+    font-size:13px
     }
+    
     .position {
-        margin-right: 9px; /* Ajusta según tu preferencia */
+    margin-right:9px
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:0
     }
+    
     body {
-        font-size: 57%;
+    font-size:57%
     }
+    
     .constructor-name {
-        font-size: 85%;
+    font-size:85%
     }
+    
     .titles1 {
-        font-size: 90%;
+    font-size:90%
     }
+    
     .constructor-logo {
-        height: 18px;
+    height:18px
     }
-}
-
-@media only screen and (min-width: 396px) and (max-width: 450px) {
-    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    }
+    
+    @media only screen and (min-width: 396px) and (max-width: 450px) {
+    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
     .result-table th:nth-child(2) {
-        display: none;
+    display:none
     }
-
+    
     .result-table td {
-        width: auto;
+    width:auto
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:0
     }
+    
     .position {
-        margin-right: 10; 
+    margin-right:10px
     }
+    
     body {
-        font-size: 70%;
+    font-size:70%
     }
+    
     .titles1 {
-        font-size: 90%;
+    font-size:90%
     }
+    
     .section-box p {
-        font-size: 14px;
+    font-size:14px
     }
-}
-
-@media only screen and (min-width: 381px) and (max-width: 396px) {
-    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    }
+    
+    @media only screen and (min-width: 381px) and (max-width: 396px) {
+    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
     .result-table th:nth-child(2) {
-        display: none;
+    display:none
     }
-
+    
     .result-table td {
-        width: auto;
+    width:auto
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:0
     }
+    
     .position {
-        margin-right: 10; 
+    margin-right:10px
     }
+    
     body {
-        font-size: 66%;
+    font-size:66%
     }
+    
     .titles1 {
-        font-size: 90%;
+    font-size:90%
     }
+    
     .section-box p {
-        font-size: 14px;
+    font-size:14px
     }
-}
-
-@media only screen and (min-width: 0px) and (max-width: 381px) {
-    .result-table td:nth-child(2), /* Esto oculta la segunda columna, que es la del constructor */
+    }
+    
+    @media only screen and (min-width: 0px) and (max-width: 381px) {
+    .result-table td:nth-child(2),/* Esto oculta la segunda columna,que es la del constructor */
     .result-table th:nth-child(2) {
-        display: none;
+    display:none
     }
-
+    
     .result-table td {
-        width: auto;
+    width:auto
     }
+    
     .section-box {
-        margin:  1px; /* O el valor que prefieras para pantallas más pequeñas */
+    margin:1px
     }
+    
     .section-box2 {
-        padding: 0px; /* O el valor que prefieras para pantallas más pequeñas */
+    padding:0
     }
+    
     .position {
-        margin-right: 10; 
+    margin-right:10px
     }
+    
     body {
-        font-size: 60%;
+    font-size:60%
     }
+    
     .titles1 {
-        font-size: 90%;
+    font-size:90%
     }
+    
     .section-box p {
-        font-size: 13px;
+    font-size:13px
     }
-}
+    }

@@ -55,56 +55,63 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para analizar datos XML
-    function parseXMLData(xmlDoc) {
-        const raceName = getTextContent(xmlDoc, 'RaceName');
-        const circuitName = getTextContent(xmlDoc, 'CircuitName');
-        const location = `${getTextContent(xmlDoc, 'Locality')}, ${getTextContent(xmlDoc, 'Country')}`;
+// Función para analizar datos XML
+function parseXMLData(xmlDoc) {
+    const raceName = getTextContent(xmlDoc, 'RaceName');
+    const circuitName = getTextContent(xmlDoc, 'CircuitName');
+    const location = `${getTextContent(xmlDoc, 'Locality')}, ${getTextContent(xmlDoc, 'Country')}`;
 
-        const resultsByDriver = {};
-        xmlDoc.querySelectorAll('Result').forEach(result => {
-            const givenName = getTextContent(result, 'GivenName');
-            const familyName = getTextContent(result, 'FamilyName');
-            const fullName = `${givenName} ${familyName}`;
+    const resultsByDriver = {};
+    xmlDoc.querySelectorAll('Result').forEach(result => {
+        const givenName = getTextContent(result, 'GivenName');
+        const familyName = getTextContent(result, 'FamilyName');
+        const fullName = `${givenName} ${familyName}`;
 
-            if (!resultsByDriver[fullName]) {
-                resultsByDriver[fullName] = [];
-            }
+        if (!resultsByDriver[fullName]) {
+            resultsByDriver[fullName] = [];
+        }
 
-            const position = result.getAttribute('position');
-            let gridPosition = getTextContent(result, 'Grid');
-            if (gridPosition === '0') {
-                gridPosition = 'PIT';
+        const position = result.getAttribute('position');
+        let gridPosition = getTextContent(result, 'Grid');
+        if (gridPosition === '0') {
+            gridPosition = 'PIT';
+        } else {
+            gridPosition = gridPosition || 'N/A';
+        }
+
+        const constructor = getTextContent(result, 'Constructor Name');
+        const status = getTextContent(result, 'Status');
+        let time = getTextContent(result, 'Time');
+        const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
+
+        if (position === 'D') {
+            time = `${time} (DSQ)`;
+        } else if (status !== 'Finished') {
+            if (status.includes('+')) {
+                time = status;
             } else {
-                gridPosition = gridPosition || 'N/A';
+                time = `${status} (DNF)`;
             }
+        }
+        
 
-            const constructor = getTextContent(result, 'Constructor Name');
-            const status = getTextContent(result, 'Status');
-            let time = getTextContent(result, 'Time');
-            const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
-
-            if (status !== 'Finished') {
-                time = status.includes('+') || status === 'DISQUALIFIED' ? status : `${status} (DNF)`;
-            }
-
-            resultsByDriver[fullName].push({
-                position,
-                gridPosition,
-                constructor,
-                time,
-                fastestLapTime,
-            });
+        resultsByDriver[fullName].push({
+            position,
+            gridPosition,
+            constructor,
+            time,
+            fastestLapTime,
         });
+    });
 
-        return { raceName, circuitName, location, resultsByDriver };
-    }
+    return { raceName, circuitName, location, resultsByDriver };
+}
 
-    // Función para obtener el contenido de texto de un elemento
-    function getTextContent(element, tagName) {
-        const targetElement = element.querySelector(tagName);
-        return targetElement ? targetElement.textContent.trim() : 'N/A';
-    }
+// Función para obtener el contenido de texto de un elemento
+function getTextContent(element, tagName) {
+    const targetElement = element.querySelector(tagName);
+    return targetElement ? targetElement.textContent.trim() : 'N/A';
+}
 
     // Función para renderizar los datos
     function renderData(data) {
@@ -201,28 +208,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     hudDataElement.textContent = 'No hay datos almacenados disponibles.';
                 }
             } catch (error) {
-                console.error('Error parsing localStorage data:', error);
-                hudDataElement.textContent = 'Error al cargar datos almacenados.';
+                console.error('Error parsing stored data:', error);
+                hudDataElement.textContent = 'Error al cargar los datos almacenados.';
             }
-
-            const endTime = performance.now();
-            console.log(`LocalStorage Data loaded in ${endTime - startTime} ms`);
         } else {
             hudDataElement.textContent = 'No hay datos almacenados disponibles.';
         }
+
+        const endTime = performance.now();
+        console.log(`Data loaded from localStorage in ${endTime - startTime} ms`);
     }
 
-    // Intenta cargar datos desde localStorage primero
+    // Intentar cargar desde localStorage primero
     loadFromLocalStorage();
 
-    // Luego intenta obtener datos desde la API en segundo plano
-    fetchDataFromAPI()
-        .then(data => {
-            console.log('Data from API:', data);
-            renderData(data); // Actualiza la visualización con los datos más recientes de la API
-        })
-        .catch(error => {
-            console.error('Error al hacer la solicitud:', error);
-            loadFromLocalStorage(); // Intenta cargar datos almacenados si la API falla
-        });
+    // Luego, intentar obtener los datos de la API
+    fetchDataFromAPI().then(data => {
+        renderData(data);
+    }).catch(error => {
+        console.error('Error fetching data from API:', error);
+    });
 });
