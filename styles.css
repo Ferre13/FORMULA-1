@@ -124,6 +124,15 @@ body {
     font-weight: 600; /* Resaltar el texto */
 }
 
+#fastest-lap-icon {
+    font-size: 0.7rem;
+    margin-left: 5px;
+    display: inline-block;
+    opacity: 0.6; /* Añade transparencia */
+    position: relative;
+    top: -2.5px; /* Ajusta este valor para subir la flecha */
+}
+
 @media only screen and (max-width: 1300px) {
     .position {
         margin-right: 13px;
