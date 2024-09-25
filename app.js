@@ -155,9 +155,9 @@ function getTextContent(element, tagName) {
                                 return `
                                     <tr>
                                         <td style="text-align:left; color: ${teamColors[resultsByDriver[fullName][0].constructor] || 'inherit'};">
-                                            <span class="position" style="font-weight:bold; display: inline-block; vertical-align: top;">${resultsByDriver[fullName][0].position}.</span>
+                                            <span class="position" style="font-weight:900;text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4); display: inline-block;">${resultsByDriver[fullName][0].position}.</span>
                                             <span class="driver">
-                                                <span style="display: inline-block; vertical-align: top;">
+                                                <span style="display: inline-block; vertical-align: middle;">
                                                     <span class="given-name">${givenName}</span>
                                                     <span class="family-name">${familyName}</span>
                                                 </span>
