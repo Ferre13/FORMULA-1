@@ -83,6 +83,8 @@ function parseXMLData(xmlDoc) {
         const status = getTextContent(result, 'Status');
         let time = getTextContent(result, 'Time');
         const fastestLapTime = getTextContent(result, 'FastestLap Time') || 'N/A';
+        const fastestLap = result.querySelector('FastestLap');
+        const fastestLapPosition = fastestLap ? fastestLap.getAttribute('rank') : 'N/A';
 
         if (position === 'D') {
             time = `${time} (DSQ)`;
@@ -101,6 +103,7 @@ function parseXMLData(xmlDoc) {
             constructor,
             time,
             fastestLapTime,
+            fastestLapPosition,
         });
     });
 
@@ -120,6 +123,22 @@ function getTextContent(element, tagName) {
         if (!resultsByDriver || Object.keys(resultsByDriver).length === 0) {
             hudDataElement.textContent = 'No hay datos disponibles para mostrar.';
             return;
+        }
+
+        let fastestLapDriver = null;
+
+        Object.keys(resultsByDriver).forEach(fullName => {
+            const driverData = resultsByDriver[fullName][0];
+            const fastestLapPosition = driverData.fastestLapPosition;
+            if (fastestLapPosition === '1') { // Si tiene la vuelta rápida más rápida
+                fastestLapDriver = fullName;
+            }
+        });
+        
+        if (fastestLapDriver) {
+            console.log(`El conductor con la vuelta más rápida es: ${fastestLapDriver}`);
+        } else {
+            console.log('No hay un conductor que haya registrado la vuelta más rápida.');
         }
 
         const infoString = `
@@ -152,8 +171,9 @@ function getTextContent(element, tagName) {
                                 const constructorLogo = constructorLogos[resultsByDriver[fullName][0].constructor] || 'img/default.png'; // Fallback logo
                                 const excludedConstructors = new Set(['McLaren', 'Red Bull', 'Haas F1 Team', 'Alpine F1 Team', 'Aston Martin']);
                                 const showConstructorName = !excludedConstructors.has(resultsByDriver[fullName][0].constructor);
+                                const fastestLapClass = (fullName === fastestLapDriver) ? 'fastest-lap' : '';
                                 return `
-                                    <tr>
+                                    <tr class="${fastestLapClass}">
                                         <td style="text-align:left; color: ${teamColors[resultsByDriver[fullName][0].constructor] || 'inherit'};">
                                             <span class="position" style="font-weight:900;text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4); display: inline-block;">${resultsByDriver[fullName][0].position}.</span>
                                             <span class="driver">
