@@ -177,7 +177,7 @@ function getTextContent(element, tagName) {
                                         <td style="text-align:left; color: ${teamColors[resultsByDriver[fullName][0].constructor] || 'inherit'};">
                                             <span class="position">${resultsByDriver[fullName][0].position}.</span>
                                             <span class="driver">
-                                                <span style="display: inline-block; vertical-align: middle;">
+                                                <span>
                                                     <span class="given-name">${givenName}</span>
                                                     <span class="family-name">${familyName}</span>
                                                 </span>
