@@ -175,7 +175,7 @@ function getTextContent(element, tagName) {
                                 return `
                                     <tr class="${fastestLapClass}">
                                         <td style="text-align:left; color: ${teamColors[resultsByDriver[fullName][0].constructor] || 'inherit'};">
-                                            <span class="position" style="font-weight:900;text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4); display: inline-block;">${resultsByDriver[fullName][0].position}.</span>
+                                            <span class="position">${resultsByDriver[fullName][0].position}.</span>
                                             <span class="driver">
                                                 <span style="display: inline-block; vertical-align: middle;">
                                                     <span class="given-name">${givenName}</span>
