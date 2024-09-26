@@ -26,19 +26,19 @@ document.addEventListener('DOMContentLoaded', function () {
         'Alpine F1 Team': 'img/alpine.png',
     };
 
-    let isFastestLapSorted = false; // Estado de orden para "Fastest Lap"
-    let raceData = null; // Almacenar los datos de la carrera
+    let isFastestLapSorted = false; 
+    let raceData = null;
 
     function toggleFastestLapIcon() {
         const fastestLapIcon = document.getElementById('fastest-lap-icon');
-        fastestLapIcon.textContent = isFastestLapSorted ? '▼' : '▲'; // Cambia el icono
+        fastestLapIcon.textContent = isFastestLapSorted ? '▼' : '▲'; 
     }
 
     function sortResultsByFastestLap(resultsByDriver) {
         const sortedDrivers = Object.keys(resultsByDriver).sort((a, b) => {
             const lapTimeA = resultsByDriver[a][0].fastestLapTime === 'N/A' ? Infinity : parseTime(resultsByDriver[a][0].fastestLapTime);
             const lapTimeB = resultsByDriver[b][0].fastestLapTime === 'N/A' ? Infinity : parseTime(resultsByDriver[b][0].fastestLapTime);
-            return lapTimeA - lapTimeB; // Orden de menor a mayor
+            return lapTimeA - lapTimeB; 
         });
 
         const sortedResults = {};
@@ -54,11 +54,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return (minutes * 60 + seconds) * 1000;
     }
 
-    function fetchDataFromAPI() {
-        console.log('Fetching data from API...');
+    function fetchDataFromAPI(year = 'current', round = 'last') {
+        console.log(`Fetching data from API for year: ${year}, round: ${round}...`);
         const startTime = performance.now();
 
-        return fetch('https://ergast.com/api/f1/current/last/results')
+        return fetch(`https://ergast.com/api/f1/${year}/${round}/results`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('raceData', JSON.stringify(data));
                     const endTime = performance.now();
                     console.log(`API Data fetched in ${endTime - startTime} ms`);
-                    raceData = data; // Almacenar datos de la carrera
+                    raceData = data; 
                     renderData(data);
                 } else {
                     throw new Error('No data returned from API');
@@ -163,13 +163,15 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(overlay);
 
         function showOverlay() {
+            const overlay = document.getElementById('select-race');
             overlay.style.display = 'block';
-            document.getElementById('select-race').style.display = 'flex';
+            populateYearSelector(); // Carga los años en el selector
         }
 
         function hideOverlay() {
-            overlay.style.display = 'none';
-            document.getElementById('select-race').style.display = 'none';
+            const overlay = document.getElementById('select-race');
+            overlay.style.display = 'none'; // Oculta el overlay
+            document.getElementById('overlay').style.display = 'none'; // Asegúrate de ocultar el fondo del overlay también
         }
 
         const infoString = `
@@ -229,9 +231,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
 
-                <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
+                <!-- Overlay para seleccionar carrera -->
+                <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000">
                     <div class="section-box">
-                        SELECT RACE:
+                        <h3>Seleccionar Carrera</h3>
+                        <label for="year-selector">Año:</label>
+                        <select id="year-selector"></select>
+                        
+                        <label for="race-selector">Carrera:</label>
+                        <select id="race-selector"></select>
+                        
+                        <button id="apply-selection">Aplicar</button>
+                        <button id="cancel-selection">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -241,6 +252,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('race-click').addEventListener('click', showOverlay);
         overlay.addEventListener('click', hideOverlay);
+        document.getElementById('apply-selection').addEventListener('click', applySelection);
+        document.getElementById('cancel-selection').addEventListener('click', hideOverlay);
 
         document.querySelectorAll('.result-table tbody tr').forEach(row => {
             const positionDriverCell = row.children[0];
@@ -262,6 +275,52 @@ document.addEventListener('DOMContentLoaded', function () {
                 sortResultsByFastestLap(resultsByDriver);
             }
         });
+    }
+
+    function applySelection() {
+        const year = document.getElementById('year-selector').value;
+        const round = document.getElementById('race-selector').value;
+        fetchDataFromAPI(year, round).catch(error => {
+            console.error('Error fetching data from API:', error);
+        });
+        hideOverlay();
+    }
+
+    function populateYearSelector() {
+        const yearSelector = document.getElementById('year-selector');
+        const currentYear = new Date().getFullYear();
+
+        for (let year = currentYear; year >= 1950; year--) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            yearSelector.appendChild(option);
+        }
+
+        yearSelector.addEventListener('change', populateRaceSelector);
+        populateRaceSelector(); // Populate races for the current year on load
+    }
+
+    function populateRaceSelector() {
+        const year = document.getElementById('year-selector').value;
+        const raceSelector = document.getElementById('race-selector');
+        raceSelector.innerHTML = ''; // Clear existing options
+
+        // Fetch race data for the selected year
+        fetch(`https://ergast.com/api/f1/${year}.json`)
+            .then(response => response.json())
+            .then(data => {
+                const races = data.MRData.RaceTable.Races;
+                races.forEach(race => {
+                    const option = document.createElement('option');
+                    option.value = race.round; // Use round number for the race
+                    option.textContent = `${race.raceName} - ${race.date}`;
+                    raceSelector.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching races:', error);
+            });
     }
 
     function loadFromLocalStorage() {
