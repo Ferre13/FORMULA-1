@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             </span>
                                         </td>
                                         <td style="color: ${['McLaren', 'Red Bull'].includes(resultsByDriver[fullName][0].constructor) ? teamColors[resultsByDriver[fullName][0].constructor] : 'inherit'};">
-                                            <img src="${constructorLogo}" alt="${resultsByDriver[fullName][0].constructor}" class="constructor-logo">
+                                            <img src="${constructorLogo}"  class="constructor-logo">
                                             ${showConstructorName ? resultsByDriver[fullName][0].constructor : ''}
                                         </td>
                                         <td>${resultsByDriver[fullName][0].time}</td>
