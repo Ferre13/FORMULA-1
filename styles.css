@@ -177,7 +177,8 @@ body {
 
 @media (max-width: 768px) {
     #fastest-lap-icon {
-        top: 0px;
+        top: -1.5px;
+        font-size: 0.5rem;
     }
 }
 
@@ -234,6 +235,12 @@ body {
     
     .constructor-logo {
         height: 20px;
+    }
+}
+
+@media (max-width: 595px) {
+    #fastest-lap-icon {
+        top: -0.5px;
     }
 }
 
