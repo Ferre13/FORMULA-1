@@ -33,6 +33,10 @@ body {
     box-sizing: border-box;
 }
 
+#select-race {
+    font-weight: bold;
+}
+
 .result-table {
     width: 100%;
     border-collapse: collapse;

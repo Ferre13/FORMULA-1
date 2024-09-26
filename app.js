@@ -29,13 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let isFastestLapSorted = false; // Estado de orden para "Fastest Lap"
     let raceData = null; // Almacenar los datos de la carrera
 
-    // Función para alternar el ícono de la flecha en el encabezado "Fastest Lap"
     function toggleFastestLapIcon() {
         const fastestLapIcon = document.getElementById('fastest-lap-icon');
         fastestLapIcon.textContent = isFastestLapSorted ? '▼' : '▲'; // Cambia el icono
     }
 
-    // Función para ordenar los resultados por "Fastest Lap" (de menor a mayor)
     function sortResultsByFastestLap(resultsByDriver) {
         const sortedDrivers = Object.keys(resultsByDriver).sort((a, b) => {
             const lapTimeA = resultsByDriver[a][0].fastestLapTime === 'N/A' ? Infinity : parseTime(resultsByDriver[a][0].fastestLapTime);
@@ -43,23 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
             return lapTimeA - lapTimeB; // Orden de menor a mayor
         });
 
-        // Reorganizar los datos según el orden
         const sortedResults = {};
         sortedDrivers.forEach(driver => {
             sortedResults[driver] = resultsByDriver[driver];
         });
 
-        // Renderizar los datos ordenados
         renderData({ ...raceData, resultsByDriver: sortedResults });
     }
 
-    // Función para convertir el tiempo de vuelta en milisegundos
     function parseTime(timeStr) {
         const [minutes, seconds] = timeStr.split(':').map(parseFloat);
         return (minutes * 60 + seconds) * 1000;
     }
 
-    // Función para obtener datos de la API
     function fetchDataFromAPI() {
         console.log('Fetching data from API...');
         const startTime = performance.now();
@@ -75,8 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
                 const data = parseXMLData(xmlDoc);
-                
-                // Verificar si se obtuvieron resultados válidos
+
                 if (data && Object.keys(data.resultsByDriver).length > 0) {
                     localStorage.setItem('raceData', JSON.stringify(data));
                     const endTime = performance.now();
@@ -89,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para analizar datos XML
     function parseXMLData(xmlDoc) {
         const raceName = getTextContent(xmlDoc, 'RaceName');
         const circuitName = getTextContent(xmlDoc, 'CircuitName');
@@ -107,11 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const position = result.getAttribute('position');
             let gridPosition = getTextContent(result, 'Grid');
-            if (gridPosition === '0') {
-                gridPosition = 'PIT';
-            } else {
-                gridPosition = gridPosition || 'N/A';
-            }
+            gridPosition = gridPosition === '0' ? 'PIT' : gridPosition || 'N/A';
 
             const constructor = getTextContent(result, 'Constructor Name');
             const status = getTextContent(result, 'Status');
@@ -123,13 +111,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (position === 'D') {
                 time = `${time} (DSQ)`;
             } else if (status !== 'Finished') {
-                if (status.includes('+')) {
-                    time = status;
-                } else {
-                    time = `${status} (DNF)`;
-                }
+                time = status.includes('+') ? status : `${status} (DNF)`;
             }
-            
+
             resultsByDriver[fullName].push({
                 position,
                 gridPosition,
@@ -143,13 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return { raceName, circuitName, location, resultsByDriver };
     }
 
-    // Función para obtener el contenido de texto de un elemento
     function getTextContent(element, tagName) {
         const targetElement = element.querySelector(tagName);
         return targetElement ? targetElement.textContent.trim() : 'N/A';
     }
 
-    // Función para renderizar los datos
     function renderData(data) {
         const { raceName, circuitName, location, resultsByDriver } = data;
 
@@ -162,22 +144,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         Object.keys(resultsByDriver).forEach(fullName => {
             const driverData = resultsByDriver[fullName][0];
-            const fastestLapPosition = driverData.fastestLapPosition;
-            if (fastestLapPosition === '1') { // Si tiene la vuelta rápida más rápida
+            if (driverData.fastestLapPosition === '1') {
                 fastestLapDriver = fullName;
             }
         });
-        
-        if (fastestLapDriver) {
-            console.log(`El conductor con la vuelta más rápida es: ${fastestLapDriver}`);
-        } else {
-            console.log('No hay un conductor que haya registrado la vuelta más rápida.');
+
+        console.log(fastestLapDriver ? `El conductor con la vuelta más rápida es: ${fastestLapDriver}` : 'No hay un conductor que haya registrado la vuelta más rápida.');
+
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.display = 'none';
+        overlay.style.zIndex = '9999';
+        document.body.appendChild(overlay);
+
+        function showOverlay() {
+            overlay.style.display = 'block';
+            document.getElementById('select-race').style.display = 'flex';
+        }
+
+        function hideOverlay() {
+            overlay.style.display = 'none';
+            document.getElementById('select-race').style.display = 'none';
         }
 
         const infoString = `
             <div class="container">
                 <div class="section-box">
-                    <p style="font-weight: bold;">RACE: ${raceName}</p>
+                    <p style="font-weight: bold; cursor: pointer;" id="race-click">RACE: ${raceName}</p>
                 </div>
                 <div class="section-box">
                     <p style="font-weight: bold;">CIRCUIT: ${circuitName}</p>
@@ -185,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="section-box">
                     <p style="font-weight: bold;">CIRCUIT LOCATION: ${location}</p>
                 </div>
-        
+
                 <div class="result-sections section-box2">
                     <div class="result-section section-box">
                         <table class="result-table">
@@ -201,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tbody>
                             ${Object.keys(resultsByDriver).map(fullName => {
                                 const [givenName, familyName] = fullName.split(' ');
-                                const constructorLogo = constructorLogos[resultsByDriver[fullName][0].constructor] || 'img/default.png'; // Fallback logo
+                                const constructorLogo = constructorLogos[resultsByDriver[fullName][0].constructor] || 'img/default.png';
                                 const excludedConstructors = new Set(['McLaren', 'Red Bull', 'Haas F1 Team', 'Alpine F1 Team', 'Aston Martin']);
                                 const showConstructorName = !excludedConstructors.has(resultsByDriver[fullName][0].constructor);
                                 const fastestLapClass = (fullName === fastestLapDriver) ? 'fastest-lap' : '';
@@ -230,10 +228,19 @@ document.addEventListener('DOMContentLoaded', function () {
                         </table>
                     </div>
                 </div>
+
+                <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
+                    <div class="section-box">
+                        SELECT RACE:
+                    </div>
+                </div>
             </div>
         `;
 
         hudDataElement.innerHTML = infoString;
+
+        document.getElementById('race-click').addEventListener('click', showOverlay);
+        overlay.addEventListener('click', hideOverlay);
 
         document.querySelectorAll('.result-table tbody tr').forEach(row => {
             const positionDriverCell = row.children[0];
@@ -245,20 +252,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Agregar evento de clic para ordenar por "Fastest Lap"
         document.getElementById('fastest-lap-header').addEventListener('click', () => {
             if (isFastestLapSorted) {
-                // Volver al orden original de la carrera
                 renderData(raceData);
                 isFastestLapSorted = false;
             } else {
-                isFastestLapSorted = true; // Activar el estado de orden
-                sortResultsByFastestLap(resultsByDriver); // Ordenar y renderizar
+                isFastestLapSorted = true;
+                toggleFastestLapIcon(); // Cambiar el icono
+                sortResultsByFastestLap(resultsByDriver);
             }
         });
     }
 
-    // Función para cargar y renderizar los datos desde localStorage
     function loadFromLocalStorage() {
         console.log('Loading data from localStorage...');
         const startTime = performance.now();
@@ -284,10 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(`Data loaded from localStorage in ${endTime - startTime} ms`);
     }
 
-    // Intentar cargar desde localStorage primero
     loadFromLocalStorage();
-
-    // Luego, intentar obtener los datos de la API
     fetchDataFromAPI().catch(error => {
         console.error('Error fetching data from API:', error);
     });
