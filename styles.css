@@ -68,7 +68,7 @@ body {
 }
 
 .section-box, .result-box, .table, .header, .row, .column {
-    border: 2px solid #2D3031;
+    border: 3px solid #2D3031;
     border-radius: 15px;
     padding: 10px;
     margin-bottom: 10px;

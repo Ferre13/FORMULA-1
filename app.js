@@ -29,11 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let isFastestLapSorted = false; 
     let raceData = null;
 
-    function toggleFastestLapIcon() {
-        const fastestLapIcon = document.getElementById('fastest-lap-icon');
-        fastestLapIcon.textContent = isFastestLapSorted ? '▼' : '▲'; 
-    }
-
     function sortResultsByFastestLap(resultsByDriver) {
         const sortedDrivers = Object.keys(resultsByDriver).sort((a, b) => {
             const lapTimeA = resultsByDriver[a][0].fastestLapTime === 'N/A' ? Infinity : parseTime(resultsByDriver[a][0].fastestLapTime);
@@ -134,52 +129,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderData(data) {
         const { raceName, circuitName, location, resultsByDriver } = data;
-
+    
         if (!resultsByDriver || Object.keys(resultsByDriver).length === 0) {
             hudDataElement.textContent = 'No hay datos disponibles para mostrar.';
             return;
         }
-
+    
         let fastestLapDriver = null;
-
+    
         Object.keys(resultsByDriver).forEach(fullName => {
             const driverData = resultsByDriver[fullName][0];
             if (driverData.fastestLapPosition === '1') {
                 fastestLapDriver = fullName;
             }
         });
-
+    
         console.log(fastestLapDriver ? `El conductor con la vuelta más rápida es: ${fastestLapDriver}` : 'No hay un conductor que haya registrado la vuelta más rápida.');
-
-    const overlay = document.createElement('div');
-    overlay.setAttribute('id', 'overlay'); // Añadir ID para referenciar
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    overlay.style.display = 'none'; 
-    overlay.style.zIndex = '9999'; 
-    document.body.appendChild(overlay);
-
-    function showOverlay() {
-        // Mostrar el tinte de fondo
-        document.getElementById('overlay').style.display = 'block'; 
-        // Mostrar el contenido modal (select-race)
-        document.getElementById('select-race').style.display = 'block'; 
-        populateYearSelector(); // Cargar los años en el selector
-    }
-
-    // Función para ocultar el tinte de fondo y el modal
-    function hideOverlay() {
-        // Ocultar el tinte de fondo
-        document.getElementById('overlay').style.display = 'none';
-        // Ocultar el contenido modal
-        document.getElementById('select-race').style.display = 'none';
-    }
-
-
+    
         const infoString = `
             <div class="container">
                 <div class="section-box">
@@ -191,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="section-box">
                     <p style="font-weight: bold;">CIRCUIT LOCATION: ${location}</p>
                 </div>
-
+    
                 <div class="result-sections section-box2">
                     <div class="result-section section-box">
                         <table class="result-table">
@@ -236,30 +202,83 @@ document.addEventListener('DOMContentLoaded', function () {
                         </table>
                     </div>
                 </div>
+    
+                <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
+                    <div class="section-box" style="text-align: center; border: 8px solid #2D3031;"> <!-- Centramos el contenido -->
+                        <h1 style="margin-bottom: 20px;">RACE SELECTION:</h1>
+    
+                        <div style="margin-bottom: 15px; font-weight: 400; font-family: 'Orbitron';">
+                            <label for="year-selector">Year:</label>
+                            <select id="year-selector" style="margin-left: 10px; font-family: 'Orbitron';"></select>
+                        </div>
 
-                <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000">
-                    <div class="section-box">
-                        <h1>SELECT RACE:</h1>
-                        <label for="year-selector">Año:</label>
-                        <select id="year-selector"></select>
-                        
-                        <label for="race-selector">Carrera:</label>
-                        <select id="race-selector"></select>
-                        
-                        <button id="apply-selection">Aplicar</button>
-                        <button id="cancel-selection">Cancelar</button>
+                        <div style="margin-bottom: 20px; font-weight: 400; font-family: 'Orbitron';">
+                            <label for="race-selector">Race:</label>
+                            <select id="race-selector" style="margin-left: 10px; font-family: 'Orbitron';"></select>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <button id="apply-selection" style="padding: 10px 20px; font-family: 'Orbitron';">Apply</button>
+                            <button id="cancel-selection" style="padding: 10px 20px; font-family: 'Orbitron';">Cancel</button>
+                        </div>
                     </div>
                 </div>
+    
             </div>
         `;
-
+    
+        const overlay = document.createElement('div');
+        overlay.id = 'overlay';  // Añadir ID para referenciar
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.display = 'none'; 
+        overlay.style.zIndex = '9999'; 
+        document.body.appendChild(overlay);
+    
+        function showOverlay() {
+            // Mostrar el tinte de fondo
+            document.getElementById('overlay').style.display = 'block'; 
+            // Mostrar el contenido modal (select-race)
+            document.getElementById('select-race').style.display = 'block'; 
+            populateYearSelector(); // Cargar los años en el selector
+        }
+    
+        // Función para ocultar el tinte de fondo y el modal
+        function hideOverlay() {
+            // Ocultar el selector de carrera
+            const raceSelectorOverlay = document.getElementById('select-race');
+            if (raceSelectorOverlay) {
+                raceSelectorOverlay.style.display = 'none';
+            }
+            
+            // Ocultar el fondo de tinte (overlay)
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }
+    
         hudDataElement.innerHTML = infoString;
-
+    
         document.getElementById('race-click').addEventListener('click', showOverlay);
         overlay.addEventListener('click', hideOverlay);
         document.getElementById('apply-selection').addEventListener('click', applySelection);
+    
+        function applySelection() {
+            const year = document.getElementById('year-selector').value;
+            const round = document.getElementById('race-selector').value;
+            fetchDataFromAPI(year, round).catch(error => {
+                console.error('Error fetching data from API:', error);
+            });
+            hideOverlay();
+        }
+    
         document.getElementById('cancel-selection').addEventListener('click', hideOverlay);
-
+    
         document.querySelectorAll('.result-table tbody tr').forEach(row => {
             const positionDriverCell = row.children[0];
             const constructorCell = row.children[1];
@@ -269,27 +288,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 constructorCell.style.color = teamColors[team];
             }
         });
-
+    
         document.getElementById('fastest-lap-header').addEventListener('click', () => {
             if (isFastestLapSorted) {
                 renderData(raceData);
                 isFastestLapSorted = false;
             } else {
                 isFastestLapSorted = true;
-                toggleFastestLapIcon(); // Cambiar el icono
                 sortResultsByFastestLap(resultsByDriver);
             }
         });
     }
-
-    function applySelection() {
-        const year = document.getElementById('year-selector').value;
-        const round = document.getElementById('race-selector').value;
-        fetchDataFromAPI(year, round).catch(error => {
-            console.error('Error fetching data from API:', error);
-        });
-        hideOverlay();
-    }
+    
 
     function populateYearSelector() {
         const yearSelector = document.getElementById('year-selector');
