@@ -175,7 +175,13 @@ body {
     }
 }
 
-@media only screen and (min-width: 655px) and (max-width: 767px) {
+@media (max-width: 768px) {
+    #fastest-lap-icon {
+        top: 0px;
+    }
+}
+
+@media only screen and (min-width: 655px) and (max-width: 768px) {
     .section-box p {
         font-size: 15px;
     }
