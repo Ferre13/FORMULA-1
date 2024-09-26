@@ -151,28 +151,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log(fastestLapDriver ? `El conductor con la vuelta más rápida es: ${fastestLapDriver}` : 'No hay un conductor que haya registrado la vuelta más rápida.');
 
-        const overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        overlay.style.display = 'none';
-        overlay.style.zIndex = '9999';
-        document.body.appendChild(overlay);
+    const overlay = document.createElement('div');
+    overlay.setAttribute('id', 'overlay'); // Añadir ID para referenciar
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.display = 'none'; 
+    overlay.style.zIndex = '9999'; 
+    document.body.appendChild(overlay);
 
-        function showOverlay() {
-            const overlay = document.getElementById('select-race');
-            overlay.style.display = 'block';
-            populateYearSelector(); // Carga los años en el selector
-        }
+    function showOverlay() {
+        // Mostrar el tinte de fondo
+        document.getElementById('overlay').style.display = 'block'; 
+        // Mostrar el contenido modal (select-race)
+        document.getElementById('select-race').style.display = 'block'; 
+        populateYearSelector(); // Cargar los años en el selector
+    }
 
-        function hideOverlay() {
-            const overlay = document.getElementById('select-race');
-            overlay.style.display = 'none'; // Oculta el overlay
-            document.getElementById('overlay').style.display = 'none'; // Asegúrate de ocultar el fondo del overlay también
-        }
+    // Función para ocultar el tinte de fondo y el modal
+    function hideOverlay() {
+        // Ocultar el tinte de fondo
+        document.getElementById('overlay').style.display = 'none';
+        // Ocultar el contenido modal
+        document.getElementById('select-race').style.display = 'none';
+    }
+
 
         const infoString = `
             <div class="container">
@@ -231,10 +237,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
 
-                <!-- Overlay para seleccionar carrera -->
                 <div id="select-race" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000">
                     <div class="section-box">
-                        <h3>Seleccionar Carrera</h3>
+                        <h1>SELECT RACE:</h1>
                         <label for="year-selector">Año:</label>
                         <select id="year-selector"></select>
                         
@@ -304,17 +309,20 @@ document.addEventListener('DOMContentLoaded', function () {
     function populateRaceSelector() {
         const year = document.getElementById('year-selector').value;
         const raceSelector = document.getElementById('race-selector');
-        raceSelector.innerHTML = ''; // Clear existing options
-
-        // Fetch race data for the selected year
+        raceSelector.innerHTML = ''; // Limpiar opciones existentes
+    
+        // Obtener datos de las carreras para el año seleccionado
         fetch(`https://ergast.com/api/f1/${year}.json`)
             .then(response => response.json())
             .then(data => {
                 const races = data.MRData.RaceTable.Races;
                 races.forEach(race => {
                     const option = document.createElement('option');
-                    option.value = race.round; // Use round number for the race
-                    option.textContent = `${race.raceName} - ${race.date}`;
+                    option.value = race.round; // Usar el número de ronda para la carrera
+                    
+                    // Aplicar formato a la fecha de la carrera
+                    const formattedDate = formatDate(race.date);
+                    option.textContent = `${race.raceName} - ${formattedDate}`;
                     raceSelector.appendChild(option);
                 });
             })
@@ -322,6 +330,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error fetching races:', error);
             });
     }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString); // Convertir el string a objeto Date
+        return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'long' }); // Formato dd/MMMM
+    }    
 
     function loadFromLocalStorage() {
         console.log('Loading data from localStorage...');
