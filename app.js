@@ -209,12 +209,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
                         <div style="margin-bottom: 15px; font-weight: 400; font-family: 'Orbitron';">
                             <label for="year-selector">Year:</label>
-                            <select id="year-selector" style="margin-left: 10px; font-family: 'Orbitron'; font-weight: 600; background-color: #C6FC0E;color: #4E575C;"></select>
+                            <select id="year-selector" style="margin-left: 10px; font-family: 'Orbitron'; font-weight: 600; background-color: #2D3031; color: #C6FC0E; border-radius: 5px;"></select>
                         </div>
 
                         <div style="margin-bottom: 20px; font-weight: 400; font-family: 'Orbitron';">
                             <label for="race-selector">Race:</label>
-                            <select id="race-selector" style="margin-left: 10px; font-family: 'Orbitron'; font-weight: 600; background-color: #C6FC0E; color: #4E575C;"></select>
+                            <select id="race-selector" style="margin-left: 10px; font-family: 'Orbitron'; font-weight: 600; background-color: #2D3031; color: #C6FC0E; border-radius: 5px;"></select>
                         </div>
 
                         <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
