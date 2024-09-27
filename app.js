@@ -240,9 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(overlay);
     
         function showOverlay() {
-            // Mostrar el tinte de fondo
             document.getElementById('overlay').style.display = 'block'; 
-            // Mostrar el contenido modal (select-race)
             document.getElementById('select-race').style.display = 'block'; 
             populateYearSelector(); // Cargar los años en el selector
         }
